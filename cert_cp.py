@@ -33,8 +33,11 @@ for SRC_DIR_NAME in info:
             CP_TO_DIR = "{}/{}/{}".format(CERT_BASE_PATH, service["subscriber"], service["service"])
         for f in CERT_FILES:
             src = CP_FROM_DIR + "/" + f
-            des = CP_FROM_DIR + "/" + f
+            des = CP_TO_DIR + "/" + f
             try:
                 shutil.copy2(src, des)
-            except:
+            except shutil.Error as e:
+            	print e
                 print "[WARNING] Copy from {} to {} failed".format(src, des)
+            except:
+                print "[WARNING] Copy from {} to {} failed with unknown error".format(src, des)
